@@ -1,9 +1,8 @@
-# Write your MySQL query statement below
-with join_table as (select D.name as dept, E.name, E.salary, D.id
-from Employee as E
-right join Department as D on E.departmentId = D.id)
+/* Write your T-SQL query statement below */
 
-select dept as Department, name as Employee, salary as Salary
-from join_table
-where (id,salary) in (select departmentId, max(salary) from Employee 
-group by departmentId)
+select Department, Employee, Salary
+    from (select D.name as Department, E.name as Employee, E.salary AS Salary, max(E.salary) over(partition by D.name) as MaxSalary
+        from Employee as E
+        left join Department as D 
+        on E.departmentId = D.id) as A
+where Salary = MaxSalary
