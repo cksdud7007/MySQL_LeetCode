@@ -1,5 +1,6 @@
-# Write your MySQL query statement below
-select distinct a.num as ConsecutiveNums
-from Logs a inner join Logs b on a.id + 1 = b.id
-            inner join Logs c on a.id + 2 = c.id
-where a.num = b.num and a.num = c.num
+/* Write your T-SQL query statement below */
+
+select distinct num as ConsecutiveNums
+from (select num, lag(num, 1) over(order by id) as 'LAG', lag(num, 2) over(order by id) as 'LAG_'
+from Logs) as a
+where num = LAG and LAG = LAG_
