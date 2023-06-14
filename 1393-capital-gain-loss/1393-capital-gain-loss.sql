@@ -12,4 +12,3 @@ select buy.stock_name, buy.price + sell.price as capital_gain_loss
     from buy
 join sell
 on buy.stock_name = sell.stock_name
-group by buy.stock_name
