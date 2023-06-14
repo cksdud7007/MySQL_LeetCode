@@ -5,8 +5,8 @@ with A as ((select requester_id, accepter_id
           (select accepter_id, requester_id
              from RequestAccepted))
     
-select requester_id as id, count(*) as num
+select accepter_id as id, count(*) as num
     from A
-group by requester_id
+group by accepter_id
 order by num desc
 limit 1
